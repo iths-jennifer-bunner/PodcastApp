@@ -1,45 +1,33 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import PodcastCard from './PodcastCard';
-import { ApiFetching } from './ApiFetching';
+import useFetch from '../utils/useFetch';
 
 function ListPodcasts() {
-  // const [data, setData] = useState([]);
-  // const [error, setError] = useState(null);
-  // useEffect(() => {
-  //   async function fetchData() {
-  //     try {
-  //       const response = await fetch(`https://api.podd.app/podcasts`, {
-  //         headers: {
-  //           Accept: 'application/json',
-  //           'Content-Type': 'application/json',
-  //         },
-  //       });
-  //       if (!response.ok) {
-  //         throw new Error(
-  //           `This is an HTTP error: The status is ${response.status}`
-  //         );
-  //       }
-  //       const actualData = await response.json();
-  //       setData(actualData);
-  //       console.log('json:', actualData);
-  //       setError(null);
-  //       // setData(json.data.children.map((it) => it.data));
-  //     } catch (err) {
-  //       console.error('error:', err);
-  //       setError(err.message);
-  //       setData(null);
-  //     }
-  //   }
-  //   fetchData();
-  // }, []);
-  const data = ApiFetching();
+  const url = `https://api.podd.app/podcasts`;
+  const { data, error, isLoading } = useFetch(url);
+
+  if (isLoading) {
+    return <div>Loading..</div>;
+  }
+  if (error) {
+    return <div>{error}</div>;
+  }
   return (
-    <div>
-      <h2>Podcast</h2>
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexDirection: 'column',
+      }}
+    >
+      <h1>What do you want to listen on today?</h1>
       <ul
         style={{
           listStyleType: 'none',
           display: 'flex',
+          justifyContent: 'center',
+          alignContent: 'center',
           flexWrap: 'wrap',
         }}
       >

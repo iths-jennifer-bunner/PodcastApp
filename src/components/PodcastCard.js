@@ -13,14 +13,19 @@ function PodcastCard(props) {
         height: '25rem',
         margin: '1rem',
         padding: '1rem',
-        border: '1px solid #808080',
+
         borderRadius: '10px',
+        boxShadow: '2px 7px 16px -9px rgba(0,0,0,0.34)',
       }}
     >
-      <img src={props.image} alt="Podcast" style={{ width: '10rem' }} />
-      {/* <Link to={`/${props.slug}`}> */}
-      <h4>{props.title}</h4>
-      {/* </Link> */}
+      <img
+        src={props.image}
+        alt="Podcast"
+        style={{ width: '10rem', borderRadius: '5px' }}
+      />
+
+      <h3>{props.title}</h3>
+
       <div
         style={{
           textOverflow: 'ellipsis',
@@ -31,7 +36,13 @@ function PodcastCard(props) {
       >
         <p>{props.desc}</p>
       </div>
-      <Link to={{ pathname: `/${props.slug}` }}>View more</Link>
+      <Link
+        to={`/${props.slug}`}
+        state={{ slug: `${props.slug}` }}
+        style={{ textDecoration: 'none', color: 'inherit', fontWeight: 'bold' }}
+      >
+        View more
+      </Link>
     </div>
   );
 }

@@ -1,23 +1,46 @@
 import React from 'react';
+import useFetch from '../utils/useFetch';
+import { useLocation } from 'react-router-dom';
 
-function PodcastPage(props) {
+function PodcastPage() {
+  const location = useLocation();
+  const { slug } = location.state;
+  const url = `https://api.podd.app/podcasts/${slug}`;
+  console.log(url);
+  const { data, error, isLoading } = useFetch(url);
+
+  if (isLoading) {
+    return <div>Loading..</div>;
+  }
+  if (error) {
+    return <div>{error}</div>;
+  }
+
   return (
     <div
       style={{
         display: 'flex',
-        flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        width: '20rem',
-        height: '25rem',
-        margin: '1rem',
-        padding: '1rem',
+        paddingTop: '10rem',
       }}
     >
-      <img src={props.image} alt="Podcast" style={{ width: '10rem' }} />
-      <h4>{props.title}</h4>
-      <div>
-        <p>{props.desc}</p>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          maxWidth: '50rem',
+        }}
+      >
+        <img
+          src={data.image}
+          alt="Podcast"
+          style={{ width: '100%', borderRadius: '5px' }}
+        />
+        <h3>{data.title}</h3>
+        <p>{data.description}</p>
       </div>
     </div>
   );
