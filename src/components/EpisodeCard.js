@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-function PodcastCard(props) {
+function EpisodeCard(props) {
   return (
     <div
       style={{
@@ -48,10 +48,10 @@ function PodcastCard(props) {
           borderRadius: '50px',
         }}
       >
-        Want to listen?
+        Play
       </Link>
     </div>
   );
 }
 
-export default PodcastCard;
+export default EpisodeCard;
