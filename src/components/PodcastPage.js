@@ -1,7 +1,6 @@
 import React from 'react';
 import useFetch from '../utils/useFetch';
 import { useLocation } from 'react-router-dom';
-import PodcastCard from './PodcastCard';
 import EpisodeCard from './EpisodeCard';
 
 function PodcastPage() {
@@ -9,9 +8,6 @@ function PodcastPage() {
   const { slug } = location.state;
   const url = `https://api.podd.app/podcasts/${slug}`;
   const { data, error, isLoading } = useFetch(url);
-  // const { episodes } = useFetchEpisodes(url);
-
-  // console.log(episodes.episodes);
 
   if (isLoading) {
     return <div>Loading..</div>;

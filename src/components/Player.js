@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 
 const useAudio = (url) => {
   const [audio] = useState(new Audio(url));
-  console.log(audio);
   const [playing, setPlaying] = useState(false);
 
   const toggle = () => setPlaying(!playing);
@@ -22,16 +21,13 @@ const useAudio = (url) => {
 };
 
 const Player = (props) => {
-  console.log(props);
   const [playing, toggle] = useAudio(props.audio);
-
   return (
     <div>
       <button
         onClick={toggle}
         style={{
           textDecoration: 'none',
-          backgroundColor: 'none',
           fontWeight: 'bold',
           border: '2px solid #000',
           padding: '1rem 2rem',
