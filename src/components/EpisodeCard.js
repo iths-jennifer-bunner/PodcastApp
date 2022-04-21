@@ -1,7 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Player from './Player';
 
 function EpisodeCard(props) {
+  // console.log(props.audio);
   return (
     <div
       style={{
@@ -10,7 +12,7 @@ function EpisodeCard(props) {
         justifyContent: 'center',
         alignItems: 'center',
         width: '20rem',
-        height: '25rem',
+        height: 'rem',
         margin: '1rem',
         padding: '1rem',
 
@@ -23,9 +25,7 @@ function EpisodeCard(props) {
         alt="Podcast"
         style={{ width: '10rem', borderRadius: '5px' }}
       />
-
       <h3>{props.title}</h3>
-
       <div
         style={{
           textOverflow: 'ellipsis',
@@ -36,7 +36,7 @@ function EpisodeCard(props) {
       >
         <p>{props.desc}</p>
       </div>
-      <Link
+      {/* <Link
         to={`/${props.slug}`}
         state={{ slug: `${props.slug}` }}
         style={{
@@ -49,7 +49,8 @@ function EpisodeCard(props) {
         }}
       >
         Play
-      </Link>
+      </Link> */}
+      {props.audio && <Player audio={props.audio} />}
     </div>
   );
 }

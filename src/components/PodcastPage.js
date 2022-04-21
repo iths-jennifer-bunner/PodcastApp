@@ -67,6 +67,7 @@ function PodcastPage() {
                   image={item.image}
                   desc={item.description}
                   slug={item.slug}
+                  audio={item.audioUrl}
                 />
               </li>
             ))}

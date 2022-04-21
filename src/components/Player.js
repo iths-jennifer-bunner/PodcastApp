@@ -1,37 +1,47 @@
-import React from 'react';
-import { useLocation } from 'react-router';
-import useFetch from '../utils/useFetch';
+import React, { useState, useEffect } from 'react';
 
-function Player(props) {
-  const location = useLocation();
-  const { slug } = location.state;
-  const url = `https://api.podd.app/podcasts/${slug}`;
-  const { data, error, isLoading } = useFetch(url);
+const useAudio = (url) => {
+  const [audio] = useState(new Audio(url));
+  console.log(audio);
+  const [playing, setPlaying] = useState(false);
 
-  console.log('data', { data });
+  const toggle = () => setPlaying(!playing);
 
-  if (isLoading) {
-    return <div>Loading..</div>;
-  }
-  if (error) {
-    return <div>{error}</div>;
-  }
+  useEffect(() => {
+    playing ? audio.play() : audio.pause();
+  }, [playing, audio]);
+
+  useEffect(() => {
+    audio.addEventListener('ended', () => setPlaying(false));
+    return () => {
+      audio.removeEventListener('ended', () => setPlaying(false));
+    };
+  }, [audio]);
+
+  return [playing, toggle];
+};
+
+const Player = (props) => {
+  console.log(props);
+  const [playing, toggle] = useAudio(props.audio);
+
   return (
     <div>
-      <h3>{props.title}</h3>
-
-      <div
+      <button
+        onClick={toggle}
         style={{
-          textOverflow: 'ellipsis',
-          width: '100%',
-          overflow: 'hidden',
-          whiteSpace: 'nowrap',
+          textDecoration: 'none',
+          backgroundColor: 'none',
+          fontWeight: 'bold',
+          border: '2px solid #000',
+          padding: '1rem 2rem',
+          borderRadius: '50px',
         }}
       >
-        <p>{props.desc}</p>
-      </div>
+        {playing ? 'Pause' : 'Play'}
+      </button>
     </div>
   );
-}
+};
 
 export default Player;
